@@ -10,11 +10,20 @@ app.use(express.urlencoded({extended:true}))  // αποκωδικοποιεί τ
 
 app.use('/', express.static('files'));  // μόλις γίνει κλήση στο root('/'), ανοίγουν τα στατικά αρχεία στον φάκελο files
 
+const logger = (req, res, next) => {
+  let url = req.url;
+  console.log('Logger: ', req.body);
+  let time = new Date();
+  console.log('Received requests for ' + url + ' at' + time);
+
+  next()  // όταν τελειώσει, περνάει στην επόμενη συνάρτηση που την αναφέρει (εδώ, app.post('/user'))
+}
+
 app.get('/', (req, res)=>{
   res.send("This is the home page");
 });
 
-app.post('/user', (req, res) => {
+app.post('/user', logger, (req, res) => { // προηγείται το logger
   let data = req.body;
   let username = req.body.username;
   let email = req.body.email;
