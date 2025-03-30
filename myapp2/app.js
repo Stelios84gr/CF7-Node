@@ -16,7 +16,7 @@ const logger = (req, res, next) => {
   let time = new Date();
   console.log('Received request for ' + url + ' at ' + time);
 
-  next()  // όταν τελειώσει, περνάει στην επόμενη συνάρτηση που την αναφέρει (εδώ, app.post('/user'))
+  next()  // επαναφέρει τον έλεγχο σε αυτόν μέσα απ' τον οποίο κλήθηκε (εδώ, app.post('/user'))
 }
 
 app.get('/', (req, res)=>{
