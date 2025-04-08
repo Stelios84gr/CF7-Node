@@ -12,7 +12,9 @@ exports.findAll = async(req, res) => {
         const result = await userService.findAll();
 
         res.status(200).json({ status: true, data: result });   // status μέσα στο body του response: structured/enveloped json response, συμπληρωματικά με το HTTP response
-        logger.info("INFO, Success in reading all users");
+        logger.info("Success in reading all users");
+        // logger.warn("Success in reading all users");
+        // logger.error("Message with error");
     } catch (err) {
         console.log("Problem in reading 'Users'.", err);
         logger.error("ERROR, Problem in reading all users", err);
