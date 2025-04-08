@@ -6,7 +6,7 @@ exports.options = {
     "schemas": {
       User: m2s(User)
     },
-    "securitySchemes": {
+    "securitySchemes": {  // ορισμός τύπων security - για κλήσεις που θέλουν authorization
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
@@ -14,14 +14,14 @@ exports.options = {
       }
     }
   },
-  "security": [
+  "security": [ // τύποι security που χρησιμοποιούνται
     {"bearerAuth":[]}
   ],
-  "openapi":"3.1.0",
-  "info":{
+  "openapi":"3.1.1",
+  "info":{  // στοιχεία της εφαρμογής μας
     "version": "1.0.0",
-    "title": "Users and Products CRUD API",
-    "description":"An application for creating users and choosing product",
+    "title": "Users CRUD API",
+    "description":"An application for creating and managing users.",
     "contact": {
       "name": "API Support",
       "url": "https://aueb.gr",
@@ -55,7 +55,8 @@ exports.options = {
   "paths": {
     "/api/users": {
       "get": {
-        "tags":["Users"],
+        "tags":["Users"]
+        , // μπορούμε να ορίσουμε πάνω από ένα tags
         "description":"Returns a list of all users",
         "responses":{
           "200":{
@@ -64,7 +65,7 @@ exports.options = {
               "application/json": {
                 "schema": {
                   "type":"array",
-                  "items": {
+                  "items": {  // περιεχόμενα του type (array)
                     "$ref":"#/components/schemas/User"
                   }
                 }
@@ -121,16 +122,16 @@ exports.options = {
     "/api/users/{username}":{
       "get": {
         "tags": ["Users"],
-        "parameters": [
+        "parameters": [ // εδώ τεκμηριώνονται οι path parameters σε array
           {
             "name": "username",
             "in":"path",
             "required":true,
-            "description": "Username of user that we want to find",
+            "description": "Username of the user we want to find",
             "type": "string"
           }
         ],
-        "description": "Returns users details for specific username",
+        "description": "Returns user details for specific username",
         "responses": {
           "200": {
             "description": "User details",
@@ -210,7 +211,7 @@ exports.options = {
         "tags": ["Auth"],
         "description": "Login User",
         "requestBody": {
-          "description": "User send username and password and for response we have jwt token",
+          "description": "User sends username and password and gets a jwt token for response",
           "content": {
             "application/json":{
               "schema": {
