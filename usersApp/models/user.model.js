@@ -53,7 +53,7 @@ let userSchema = new schema({
     },
     address: addressSchema,
     phone: { type: [phoneSchema], null: true},
-    product: { type: [productsSchema], null: true },
+    products: { type: [productsSchema], null: true },
     roles: { type: [String], null: true }
 },
 {
