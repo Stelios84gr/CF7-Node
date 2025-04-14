@@ -15,7 +15,7 @@ $(document).ready(function(){
     type:'get',
     dataType:'JSON',
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`  // προσθέτει το jwt_token στους headers για verification από το back-end
     }
   })
   .done(function(response){

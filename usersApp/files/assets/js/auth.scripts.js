@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function(){ // με το που φορτώσει η σελίδα, φορτώνω και τη function
 
    $('.row').off('click', '.btnSubmit').on('click', '.btnSubmit', function () {
 
@@ -18,7 +18,7 @@ $(document).ready(function(){
       dataType: "JSON",
       // encode: true,
     })
-    .done( function(response) {
+    .done( function(response) { // αφού η παραπάνω async κλήση ολοκληρωθεί επιτυχώς
       // console.log(">>", response);
       
       let data = response.data;
@@ -29,8 +29,8 @@ $(document).ready(function(){
           alert(true,'Επιτυχής σύνδεση του χρήστη');
           $('#frmLogin')[0].reset();
           // Save the token to localStorage
-          localStorage.setItem('jwt_token', data);
-          window.location.replace("http://localhost:3000/user/find.html")
+          localStorage.setItem('jwt_token', data);  // δημιούργησε στο localStorage το jwt_token
+          window.location.replace("http://localhost:3000/user/find.html") // redirect
       } else {
           console.log(false,'Πρόβλημα στην συνδεση του χρήστη ('+ data + ')');
           alert(false,'Πρόβλημα στην σύνδεση του χρήστη ('+ data + ')');
