@@ -1,4 +1,0 @@
-root: C:\Users\steli\OneDrive\Desktop\CODING\Coding_Factory\Nodejs_MongoDB\CF7-Node\usersApp\logs 
-path: C:\Program Files\nodejs 
-arch: 64 
-proxy: none

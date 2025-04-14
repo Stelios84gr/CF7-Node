@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { OAuth2Client } = require('google-auth-library');
 
 function generateAccessToken(user){
 
@@ -26,4 +27,36 @@ function verifyAccessToken(token){
     }
 }
 
-module.exports = { generateAccessToken, verifyAccessToken };
+async function googleAuth(code) {
+    console.log('Google Login', code);
+    const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+    const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+    const REDIRECT_URI = process.env.REDIRECT_URI;
+
+    const oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+
+    try {
+        // Exchange code for tokens
+        const { tokens } = oauth2Client.getToken(code); // όταν κάνουμε login παίρνουμε ένα code, το οποίο το ανταλλάζουμε για ένα token
+        console.log("Step 1", tokens);
+        oauth2Client.setCredentials(tokens);    // πιστωποίηση token
+
+        const ticket = await oauth2Client.verifyIdToken({   // πιστωποίηση ότι τα παρακάτω στοιχεία προέρχονται απ' την Google
+            idToken: tokens.id_token,
+            audience: CLIENT_ID
+        });
+
+        console.log("Step 2");
+    
+        const userInfo = await ticket.getPayload(); // αφού ολοκληρωθεί η πιστωποίηση, επιστρέφεται το payload με τα στοιχεία του χρήστη
+        console.log("Google User", userInfo);
+        return {user: userInfo, tokens};
+
+
+    } catch (error) {
+        console.log("Error in google authentication.", error);
+        return { error: "Failed to authenticate with Google."};
+    }
+}
+
+module.exports = { generateAccessToken, verifyAccessToken, googleAuth };
