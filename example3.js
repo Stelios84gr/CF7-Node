@@ -14,12 +14,14 @@ const htmlContent = `
 
 const server = http.createServer((req, res) => {
     console.log("First, create index.html file with contents from htmlContent.");
-    fs.writeFile('./index.html', htmlContent, err => {   // αρχείο που θέλουμε να δημιουργηθεί, πηγή περιεχομένων, callback για περίπτωση σφάλματος
+    // argument1: file path to be created, argument2: file data, argument3: callback function in case of error
+    fs.writeFile('./index.html', htmlContent, err => {
         if (err) {
             console.log("Error in writing file.")
         } else {
             console.log("Read file and send it back as a response.");
-            fs.readFile('index.html', 'utf8', (err, content) => {   //αρχείο που θέλουμε να διαβάσει, encoding, callback για περίπτωση σφάλματος
+            // argument1: file path of file to be red, argument2: encoding, argument3: callback function in case of error
+            fs.readFile('index.html', 'utf8', (err, content) => {
                 if (err) {
                     console.log("Error reading the file.", err)
                 }

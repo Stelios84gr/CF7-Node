@@ -13,7 +13,8 @@ const htmlContent = `
 
 const server = http.createServer((req, res) => {
     console.log("First, create index2.html file with contents from htmlContent.");
-    fs.writeFileSync('./index2.html', htmlContent); // σύγχρονη μέθοδος, η εκτέλεση κώδικα δεν προχωράει αν δεν ολοκληρωθεί αυτή η μέθοδος
+    // modern alternative - synchronous method - code after won't be executed before this is - argument1: filepath to be created, argument2: file data
+    fs.writeFileSync('./index2.html', htmlContent);
     console.log("Then, read the created index2.html file.");
     let readFile = fs.readFileSync('index2.html', 'utf8');
     if (readFile) {
