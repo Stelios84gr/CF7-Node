@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express();  // εκχωρώ τις μεθόδους του express
+const app = express();  // assigns express methods
 const port = 3000;
 
 app.get("/", (req, res) => {
@@ -18,8 +18,8 @@ app.get("/about", (req, res) => {
  })
 
  app.get("/user", (req, res) => {
-    // ?name=[name]&surname=[surname]&age=[age]
-    let query = req.query;
+    // localhost:3000/user?name=[name]&surname=[surname]&age=[age]
+    let query = req.query;  // ==> query parameters
 
     let name = query.name;
     let surname = query.surname;
@@ -27,12 +27,12 @@ app.get("/about", (req, res) => {
 
     let length = Object.keys(query).length; // keys(query) because there are query parameters
 
-    console.log("Query:", query)
-    res.send(`Name: ${name}, Surname: ${surname}, Age: ${age}`);
+    console.log("Query:", query,",", "Length:", length)
+    res.send(`Name: ${name}, Surname: ${surname}, Age: ${age}, Length: ${length}`);
  })
 
  app.get('/user/:name/:surname/:age', (req, res) => {
-    let params = req.params
+    let params = req.params // ==> path parameters
     console.log("Params", params);
 
     let name = params.name;
