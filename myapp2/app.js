@@ -5,10 +5,14 @@ const port = 3000;
 // app.use(bodyParser.json());
 // app.user(bodyParser.urlencoded({extended:false}));
 
-app.use(express.json());  // το .use() είναι για να τρέχει ενδιάμεσες συναρτήσεις
-app.use(express.urlencoded({extended:true}))  // αποκωδικοποιεί τα περιεχόμενα φόρμας στους headers (πχ. σύμβολα) για να διαβαστούν ως κείμενο
+// parses POST requests with Content-Type: application/json in header and gets JSON from the body
+app.use(express.json());
 
-app.use('/', express.static('files'));  // μόλις γίνει κλήση στο root('/'), ανοίγουν τα στατικά αρχεία στον φάκελο files
+// decodes form content data from POST request headers (including symbols, tables etc. - extended:true) so that they can be read as text
+app.use(express.urlencoded({extended:true}))
+
+// when a request in '/', opens static files in "files" folder, e.g., http://localhost:3000/myform.html
+app.use('/', express.static('files'));
 
 const logger = (req, res, next) => {
   let url = req.url;
@@ -23,7 +27,8 @@ app.get('/', (req, res)=>{
   res.send("This is the home page");
 });
 
-app.post('/user', logger, (req, res) => { // προηγείται το logger
+// logger appears first
+app.post('/user', logger, (req, res) => {
   let data = req.body;
   let username = req.body.username;
   let email = req.body.email;
@@ -39,6 +44,7 @@ app.post('/userForm', (req, res)=>{
   res.send("UserForm Page");
 });
 
+// sets what to do when receiving requests at /user1
 app.use('/user1', (req, res) => {
   console.log("User 1")
   res.send("User 1 Page");
@@ -49,9 +55,7 @@ app.use('/user2', (req, res) => {
   res.send("User 2 Page");
 });
 
-/**
- * Θα αγνοηθεί επειδή το route /user2 ικανοποιεί το app.use() (short-circuit)
- */
+// ignored because /user2 route satisfies it (short-circuit)
 app.use('/user2/hello', (req, res) => {
   console.log("User 2 Hello")
   res.send("User 2 Page Hello");
