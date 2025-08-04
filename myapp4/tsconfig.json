@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
-        "esModuleInterop": true,
-        "target": "ES6",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "outDir": "dist",
-        "sourceRoot": "src"
+        "module": "CommonJS",       // final module will be "vanilla JS"
+        "esModuleInterop": true,    // indicates interaction between CommonJS and TS
+        "target": "ES6",            // JS version TS compiles to
+        "moduleResolution": "node", // indicates that this is a node app
+        "sourceMap": true,          // creates map files used in TS translation to JS
+        "outDir": "dist",           // destination folder for JS files
+        "sourceRoot": "src"         // source folder for TS files
     },
-    "lib": ["ES2024"]
+    "lib": ["ES2024"]               // version of JS to be used
 }
