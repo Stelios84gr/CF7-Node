@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",       // final module will be "vanilla JS"
+        "module": "CommonJS",       // final module will be in "vanilla JS"
         "esModuleInterop": true,    // indicates interaction between CommonJS and TS
         "target": "ES6",            // JS version TS compiles to
         "moduleResolution": "node", // indicates that this is a node app
