@@ -8,7 +8,8 @@ app.set("view engine", "ejs");
 
 app.get('/create', (req, res) => {
     console.log("Create Page");
-    res.render('form', {})  // το ejs χρειάζεται έναν φάκελο views με αρχεία .ejs
+    // renders form.js file in views folder (required by ejs)
+    res.render('form', {})
 })
 
 app.post('/user', (req, res) => {
@@ -20,6 +21,7 @@ app.post('/user', (req, res) => {
     let username = data.username;
     let email = data.email;
 
+    // renders /user (in 'views' folder) with the data from the following object (values are from form input element names)
     res.render('user',
     {
         data1: username,
@@ -43,6 +45,7 @@ app.get('/users', (req, res) => {
         }
     ]
 
+    // renders /user (in 'views' folder), this time with data from {users} above
     res.render("users", {users})
 })
 
